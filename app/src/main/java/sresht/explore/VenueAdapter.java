@@ -1,7 +1,6 @@
 package sresht.explore;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,12 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import sresht.explore.databinding.CardLayoutBinding;
 
 class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context mContext;
@@ -32,7 +28,7 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mVenueList.size();
+        return mVenueList != null ? mVenueList.size() : 0;
     }
 
     @Override

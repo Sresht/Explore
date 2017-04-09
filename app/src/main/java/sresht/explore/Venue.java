@@ -8,13 +8,17 @@ import java.util.ArrayList;
 
 class Venue {
     final String name;
-    final int imageResource;
+    int imageResource;
     boolean isBookmarked;
     protected ArrayList<VenueImage> venueImages;
 
     Venue(String name, int image) {
-        this.name = name;
+        this(name);
         this.imageResource = image;
+    }
+
+    Venue(String name) {
+        this.name = name;
         this.isBookmarked = false;
     }
 
