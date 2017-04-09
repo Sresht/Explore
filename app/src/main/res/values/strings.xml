@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Explore</string>
+    <string name="default_city_name">City</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="details">Detail</string>
+    <string name="title">Title</string>
+    <string name="subtitle">Subtitle</string>
+</resources>
