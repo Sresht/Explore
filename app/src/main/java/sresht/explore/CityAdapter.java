@@ -18,34 +18,10 @@ class CityAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
 
 
-    CityAdapter(Context context) {
+    CityAdapter(Context context, ArrayList<City> cities) {
         mContext = context;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mCityList = getCities();
-    }
-
-    private ArrayList<City> getCities() {
-        ArrayList<City> result = new ArrayList<>();
-        result.add(new City(
-                "Beijing",
-                "Cool place 1! I'm really impressed by how cool this place is! Wow! " +
-                        "China is amazing. I can't wait to go back to China because China is just " +
-                        "so cool",
-                R.drawable.beijing));
-        result.add(new City("London",
-                "Cool place 2! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
-        result.add(new City("Nairobi",
-                "Cool place 3! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
-        result.add(new City("San Francisco",
-                "Cool place 4! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
-        result.add(new City("Sao Paulo",
-                "Cool place 5! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
-
-        return result;
+        mCityList = cities;
     }
 
     @Override
