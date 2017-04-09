@@ -13,15 +13,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 class CityAdapter extends BaseAdapter {
-    private final ArrayList<City> mCityList;
     private Context mContext;
+    private final ArrayList<City> mCityList;
     private LayoutInflater mInflater;
 
 
     CityAdapter(Context context, ArrayList<City> cities) {
         mContext = context;
-        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mCityList = cities;
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -49,14 +49,12 @@ class CityAdapter extends BaseAdapter {
 
         City city = (City) getItem(position);
         cityNameTextView.setText(city.name);
-        Typeface cityNameTypeFace = Typeface.createFromAsset(
-                mContext.getAssets(), "fonts/Tangerine_Bold.ttf");
-        cityNameTextView.setTypeface(cityNameTypeFace);
+        cityNameTextView.setTypeface(Typeface.createFromAsset(
+                mContext.getAssets(), "fonts/Tangerine_Bold.ttf"));
 
         cityDescriptionTextView.setText(city.description);
-        Typeface cityDescriptionTypeFace = Typeface.createFromAsset(
-                mContext.getAssets(), "fonts/Raleway-Medium.ttf");
-        cityDescriptionTextView.setTypeface(cityDescriptionTypeFace);
+        cityDescriptionTextView.setTypeface(Typeface.createFromAsset(
+                mContext.getAssets(), "fonts/Raleway-Medium.ttf"));
 
         cityImage.setImageResource(city.imageResource);
 
