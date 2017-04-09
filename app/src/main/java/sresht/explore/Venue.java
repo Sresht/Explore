@@ -9,10 +9,16 @@ import java.util.ArrayList;
 class Venue {
     final String name;
     final int imageResource;
+    boolean isBookmarked;
     protected ArrayList<VenueImage> venueImages;
 
     Venue(String name, int image) {
         this.name = name;
         this.imageResource = image;
+        this.isBookmarked = false;
+    }
+
+    void bookmark() {
+        this.isBookmarked = true;
     }
 }

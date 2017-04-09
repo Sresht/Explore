@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <ImageView
         android:id="@+id/card_thumbnail"
@@ -17,11 +19,25 @@
         tools:src="@mipmap/ic_launcher"
         android:contentDescription="@string/thumbnail"/>
 
+    <Button
+        android:id="@+id/bookmark_button"
+        android:background="@drawable/bookmark_inactive"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="12dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        />
+
     <RelativeLayout
         android:id="@+id/card_text_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/card_thumbnail">
+        android:layout_toEndOf="@id/card_thumbnail"
+        android:layout_toStartOf="@id/bookmark_button">
 
         <TextView
             android:id="@+id/card_title"
