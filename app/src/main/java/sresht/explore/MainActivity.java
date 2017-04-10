@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -51,17 +50,16 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.beijing));
         result.add(new City("London",
                 "Cool place 2! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
-        result.add(new City("Nairobi",
+                R.drawable.london));
+        result.add(new City("Johannesburg",
                 "Cool place 3! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
+                R.drawable.johannesburg));
         result.add(new City("San Francisco",
                 "Cool place 4! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
+                R.drawable.san_francisco));
         result.add(new City("Sao Paulo",
                 "Cool place 5! I'm really impressed by how cool this place is!",
-                R.drawable.beijing));
-
+                R.drawable.sao_paulo));
         return result;
     }
 }

@@ -1,12 +1,15 @@
 package sresht.explore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AdapterView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,6 +18,7 @@ import org.json.JSONTokener;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -95,22 +99,42 @@ public class VenueActivity extends AppCompatActivity {
 
                     for (int j = 0; j < items.length(); j++) {
                         JSONObject item = (JSONObject) ((JSONObject) items.get(j)).get("venue");
-                        Venue venue = new Venue(item.getString("name"), R.drawable.orpheum, item
+                        Venue venue = new Venue(item.getString("name"), item
                                 .getString("id"));
+                        venue.imagePath = getImagePathFromVenueObject(item);
+                        venue.location = getLocationFromVenueObject(item);
+                        venue.category = getCategoryFromVenueObject(item);
                         mVenuesList.add(venue);
                     }
                 }
-
+            } catch (Exception e) {
+                // TODO better exception handling
+                this.exception = e;
+            } finally {
                 VenueAdapter adapter = new VenueAdapter(getApplicationContext(), mVenuesList);
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 venuesView.setLayoutManager(layoutManager);
                 venuesView.setAdapter(adapter);
-            } catch (Exception e) {
-                // TODO better exception handling
-                this.exception = e;
             }
+        }
+
+        private String getImagePathFromVenueObject(JSONObject item) throws JSONException {
+            // horrible hack to get the photo URL out of the JSON response for a venue from the
+            // Foursquare API. There might be (and probably is) a better way to do this.
+            JSONObject photo = (JSONObject) ((JSONArray) ((JSONObject) ((JSONArray) (
+                    (JSONObject) item.get("photos")).get("groups")).get(0)).get("items")).get(0);
+            return photo.getString("prefix") + "300x300" + photo.getString("suffix");
+        }
+
+        private String getLocationFromVenueObject(JSONObject item) throws JSONException {
+            return (String) ((JSONObject) item.get("location")).get("address");
+        }
+
+        private String getCategoryFromVenueObject(JSONObject item) throws JSONException {
+            return (String) ((JSONObject) ((JSONArray) item.get("categories")).get(0)).get
+                    ("shortName");
         }
     }
 }

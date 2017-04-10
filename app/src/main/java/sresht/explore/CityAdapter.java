@@ -47,6 +47,7 @@ class CityAdapter extends BaseAdapter {
         ImageView cityImage = (ImageView) cardView.findViewById(
                 R.id.card_thumbnail);
 
+//        set view to reflect the City model object
         City city = (City) getItem(position);
         cityNameTextView.setText(city.name);
         cityNameTextView.setTypeface(Typeface.createFromAsset(

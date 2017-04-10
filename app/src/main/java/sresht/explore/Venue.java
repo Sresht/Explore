@@ -1,5 +1,6 @@
 package sresht.explore;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -8,23 +9,22 @@ import java.util.ArrayList;
 
 class Venue {
     final String name;
-    final String venueId;
-    int imageResource;
+    final String id;
+    String imagePath;
+    String location;
+    String category;
     boolean isBookmarked;
-    protected ArrayList<VenueImage> venueImages;
+    protected ArrayList<String> imagePaths;
 
-    Venue(String name, int image, String venueId) {
+    Venue(String name, String imagePath, String venueId) {
         this(name, venueId);
-        this.imageResource = image;
+        this.imagePath = imagePath;
     }
 
     Venue(String name, String venueId) {
         this.name = name;
         this.isBookmarked = false;
-        this.venueId = venueId;
-    }
-
-    void bookmark() {
-        this.isBookmarked = true;
+        this.id = venueId;
+        this.imagePaths = new ArrayList<>();
     }
 }
