@@ -3,6 +3,7 @@ package sresht.explore;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,10 +44,17 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ImageView venueImage = (ImageView) holder.itemView.findViewById(R.id.card_thumbnail);
         Button venueBookmarkButton = (Button) holder.itemView.findViewById(R.id.bookmark_button);
 
+        venueNameTextView.setTextSize(22);
+        venueNameTextView.setEllipsize(TextUtils.TruncateAt.END);
+        venueNameTextView.setTypeface(Typeface.createFromAsset(
+                mContext.getAssets(), "fonts/Raleway-Medium.ttf"));
+
         Venue venue  = mVenueList.get(position);
         venueNameTextView.setText(venue.name);
-        venueNameTextView.setTypeface(Typeface.createFromAsset(
-                mContext.getAssets(), "fonts/Tangerine_Bold.ttf"));
+
+        //        Picasso.with(mContext).load(venue.imageUrl).placeholder(R.res
+        // .default_venue).into(venueImage);
+
         venueImage.setImageResource(venue.imageResource);
         venueBookmarkButton.setBackgroundResource(venue.isBookmarked ?
                 R.drawable.bookmark_active :

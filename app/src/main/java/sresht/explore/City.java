@@ -14,12 +14,12 @@ class City {
         this.description = description;
         this.imageResource = imageResource;
         mVenues = new ArrayList<>();
-        populateVenues();
+//        populateVenues();
     }
 
-    private void populateVenues() {
-        for (int i = 0; i < 25; i++) {
-            mVenues.add(new Venue("Orpheum Theatre", R.drawable.beijing));
-        }
-    }
+//    private void populateVenues() {
+//        for (int i = 0; i < 25; i++) {
+//            mVenues.add(new Venue("Orpheum Theatre", R.drawable.beijing));
+//        }
+//    }
 }

@@ -8,18 +8,20 @@ import java.util.ArrayList;
 
 class Venue {
     final String name;
+    final String venueId;
     int imageResource;
     boolean isBookmarked;
     protected ArrayList<VenueImage> venueImages;
 
-    Venue(String name, int image) {
-        this(name);
+    Venue(String name, int image, String venueId) {
+        this(name, venueId);
         this.imageResource = image;
     }
 
-    Venue(String name) {
+    Venue(String name, String venueId) {
         this.name = name;
         this.isBookmarked = false;
+        this.venueId = venueId;
     }
 
     void bookmark() {

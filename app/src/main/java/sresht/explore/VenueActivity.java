@@ -1,6 +1,7 @@
 package sresht.explore;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import sresht.explore.databinding.ActivityVenueBinding;
+
 /**
  * Created by sresht on 4/9/17.
  */
@@ -32,21 +35,23 @@ public class VenueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         mVenuesList = new ArrayList<>();
-        setContentView(R.layout.activity_venue);
-//        ActivityVenueBinding binding =
-//                DataBindingUtil.setContentView(this, sresht.cityvenues.R.layout.activity_venue);
-        venuesView = (RecyclerView) findViewById(R.id.venues_recycler_view);
+        ActivityVenueBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.activity_venue);
+        venuesView = binding.venuesRecyclerView;
         venuesView.setHasFixedSize(true);
 
         String cityName = this.getIntent().getExtras().getString("cityName");
-        populateVenues(cityName, venuesView);
+        populateVenues(cityName);
     }
 
-    private void populateVenues(String cityName, RecyclerView venuesView) {
+    private void populateVenues(String cityName) {
 //        populates the static venuesList global
         new GetVenuesTask().execute(cityName);
     }
 
+    /**
+     * class that provides asynchronous network calling capability for the
+     */
     private class GetVenuesTask extends AsyncTask<String, Void, JSONArray> {
         private Exception exception;
         @Override
@@ -54,12 +59,13 @@ public class VenueActivity extends AppCompatActivity {
             try {
                 String cityName = params[0];
                 URL foursquareURL = new URL(String.format(
-                        "https://api.foursquare.com/v2/venues/explore?client_id=%s&client_secret=%s&near=%s&limit=25&v=%s",
-                        Secret.CLIENT_ID,
-                        Secret.CLIENT_SECRET,
-                        cityName,
-                        "20170409"));
-                HttpURLConnection urlConnection = (HttpURLConnection) foursquareURL.openConnection();
+                        "https://api.foursquare" +
+                                ".com/v2/venues/explore?client_id=%s&client_secret=%s&near=%s" +
+                                "&limit=25&venuePhotos=1&v=%s", Secret.CLIENT_ID, Secret
+                                .CLIENT_SECRET,
+                        cityName, "20170409"));
+                HttpURLConnection urlConnection = (HttpURLConnection) foursquareURL
+                        .openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
                 InputStream stream = urlConnection.getInputStream();
@@ -89,7 +95,8 @@ public class VenueActivity extends AppCompatActivity {
 
                     for (int j = 0; j < items.length(); j++) {
                         JSONObject item = (JSONObject) ((JSONObject) items.get(j)).get("venue");
-                        Venue venue = new Venue(item.getString("name"), R.drawable.orpheum);
+                        Venue venue = new Venue(item.getString("name"), R.drawable.orpheum, item
+                                .getString("id"));
                         mVenuesList.add(venue);
                     }
                 }

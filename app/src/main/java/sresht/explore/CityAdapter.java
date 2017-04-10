@@ -58,8 +58,6 @@ class CityAdapter extends BaseAdapter {
 
         cityImage.setImageResource(city.imageResource);
 
-//        Picasso.with(mContext).load(city.imageUrl).placeholder(R.mipmap.ic_launcher).into(thumbnailImageView);
-
         return cardView;
     }
 
