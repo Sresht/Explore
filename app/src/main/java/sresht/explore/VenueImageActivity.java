@@ -83,7 +83,7 @@ public class VenueImageActivity extends AppCompatActivity {
                     JSONObject photo = (JSONObject) photos.get(i);
                     String imageURL = String.format("%s%s%s",
                             photo.getString("prefix"),
-                            Constant.IMAGE_DIMENSION,
+                            Constant.GRID_IMAGE_DIMENSION,
                             photo.getString("suffix"));
                     mImageURLs.add(imageURL);
                 }

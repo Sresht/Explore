@@ -115,7 +115,7 @@ public class VenueActivity extends AppCompatActivity {
                     (JSONObject) item.get("photos")).get("groups")).get(0)).get("items")).get(0);
             return String.format("%s%s%s",
                     photo.getString("prefix"),
-                    Constant.IMAGE_DIMENSION,
+                    Constant.VENUE_COVER_DIMENSION,
                     photo.getString("suffix"));
         }
 
