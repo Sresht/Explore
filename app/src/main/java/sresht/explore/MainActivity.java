@@ -45,21 +45,29 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<City> result = new ArrayList<>();
         result.add(new City(
                 "Beijing",
-                "Cool place 1! I'm really impressed by how cool this place is! Wow! " +
-                        "China is amazing. I can't wait to go back to China because China is just " +
-                        "so cool",
+                "The Forbidden City contains the largest wall in the entire world. A city rich " +
+                        "with history and industry, it is a must see destination for anybody who " +
+                        "is visiting China.",
                 R.drawable.beijing));
         result.add(new City("London",
-                "Cool place 2! I'm really impressed by how cool this place is!",
+                "The city that quickly became the cultural and imperial capital of the world. " +
+                        "There " +
+                        "are endless activities and sights to see in this most regal city.",
                 R.drawable.london));
         result.add(new City("Johannesburg",
-                "Cool place 3! I'm really impressed by how cool this place is!",
+                "A bustling metropolis of fashion, architecture, landscape, and food, " +
+                        "Johannesburg has something to offer all of its visitors. Bring a car, " +
+                        "though, because there's lots to explore!",
                 R.drawable.johannesburg));
         result.add(new City("San Francisco",
-                "Cool place 4! I'm really impressed by how cool this place is!",
+                "A city that's divided into hundreds of unique neighborhoods, San Francisco is a " +
+                        "city of micro-cultures. Walk half a mile in any direction and everything" +
+                        " will change - including the weather.",
                 R.drawable.san_francisco));
         result.add(new City("Sao Paulo",
-                "Cool place 5! I'm really impressed by how cool this place is!",
+                "Brazil's most vibrant financial center comes to life after the sun goes down. " +
+                        "Explore the unique architecture during the day and party on the playa " +
+                        "until sunrise.",
                 R.drawable.sao_paulo));
         return result;
     }

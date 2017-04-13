@@ -61,7 +61,6 @@ class CityAdapter extends BaseAdapter {
         viewHolder.vCityDescription.setText(city.description);
         viewHolder.vCityDescription.setTypeface(Typeface.createFromAsset(
                 mContext.getAssets(), "fonts/Raleway-Medium.ttf"));
-
         viewHolder.vCityImage.setImageResource(city.imageResource);
         return convertView;
     }
