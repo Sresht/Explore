@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import sresht.explore.databinding.ActivityVenueBinding;
+import sresht.explore.databinding.RecyclerViewLayoutBinding;
 
 /**
  * Created by sresht on 4/9/17.
@@ -36,9 +36,9 @@ public class VenueActivity extends AppCompatActivity {
         mContext = this;
         mVenuesList = new ArrayList<>();
 
-        ActivityVenueBinding binding =
-                DataBindingUtil.setContentView(this, R.layout.activity_venue);
-        venuesView = binding.venuesRecyclerView;
+        RecyclerViewLayoutBinding binding =
+                DataBindingUtil.setContentView(this, R.layout.recycler_view_layout);
+        venuesView = binding.recyclerView;
         venuesView.setHasFixedSize(true);
 
         String cityName = this.getIntent().getExtras().getString("cityName");

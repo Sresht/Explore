@@ -11,17 +11,18 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import sresht.explore.databinding.ActivityMainBinding;
+import sresht.explore.databinding.ListViewLayoutBinding;
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.list_view_layout);
 
         final Context mContext = this;
 
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        ListViewLayoutBinding binding = DataBindingUtil.setContentView(this,
+                R.layout.list_view_layout);
         ListView mListView = binding.citiesList;
 
         final ArrayList<City> citiesList = getCities();
