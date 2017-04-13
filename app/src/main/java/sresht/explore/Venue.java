@@ -13,7 +13,6 @@ class Venue {
     String imagePath;
     String location;
     String category;
-    boolean isBookmarked;
     protected ArrayList<String> imagePaths;
 
     Venue(String name, String imagePath, String venueId) {
@@ -23,7 +22,6 @@ class Venue {
 
     Venue(String name, String venueId) {
         this.name = name;
-        this.isBookmarked = false;
         this.id = venueId;
         this.imagePaths = new ArrayList<>();
     }

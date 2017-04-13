@@ -2,11 +2,10 @@ package sresht.explore;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,8 +16,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +23,13 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context mContext;
     private final List<Venue> mVenueList;
     private LayoutInflater mInflater;
+    SharedPreferences mSharedPref;
 
-    VenueAdapter(final Context context, final ArrayList<Venue> venues) {
+    VenueAdapter(final Context context, final ArrayList<Venue> venues, final SharedPreferences
+            sharedPref) {
         mContext = context;
         mVenueList = venues;
+        mSharedPref = sharedPref;
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -52,8 +52,9 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final TextView venueNameTextView = venueViewHolder.vName;
         final Button venueBookmarkButton = venueViewHolder.vBookmark;
 
-
         final Venue venue = mVenueList.get(position);
+
+        final boolean isBookmarked = mSharedPref.getBoolean(venue.id, false);
 
         // set venue name, font, and size
         venueNameTextView.setText(venue.name);
@@ -73,15 +74,20 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                             (venueViewHolder.vImage);
 
         // update bookmark button to reflect whether the venue has been bookmarked or not
-        venueBookmarkButton.setBackgroundResource(venue.isBookmarked ?
+        venueBookmarkButton.setBackgroundResource(isBookmarked ?
                 R.drawable.bookmark_active :
                 R.drawable.bookmark_inactive);
         venueBookmarkButton.setVisibility(View.VISIBLE);
         venueBookmarkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                venue.isBookmarked = !venue.isBookmarked;
-                venueBookmarkButton.setBackgroundResource(venue.isBookmarked ? R.drawable
+                SharedPreferences.Editor editor = mSharedPref.edit();
+                // flip the value of the old bookmark state and save it in sharedPreferences in a
+                // background process
+                final boolean newBookmarkState = !isBookmarked;
+                editor.putBoolean(venue.id, newBookmarkState);
+                editor.apply();
+                venueBookmarkButton.setBackgroundResource(newBookmarkState ? R.drawable
                         .bookmark_active : R.drawable.bookmark_inactive);
             }
         });

@@ -1,15 +1,12 @@
 package sresht.explore;
 
 import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.AdapterView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +15,6 @@ import org.json.JSONTokener;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -39,6 +35,7 @@ public class VenueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         mVenuesList = new ArrayList<>();
+
         ActivityVenueBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.activity_venue);
         venuesView = binding.venuesRecyclerView;
@@ -111,7 +108,8 @@ public class VenueActivity extends AppCompatActivity {
                 // TODO better exception handling
                 this.exception = e;
             } finally {
-                VenueAdapter adapter = new VenueAdapter(getApplicationContext(), mVenuesList);
+                VenueAdapter adapter = new VenueAdapter(getApplicationContext(), mVenuesList,
+                        getPreferences(Context.MODE_PRIVATE));
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
