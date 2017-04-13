@@ -40,24 +40,35 @@ class CityAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View cardView = mInflater.inflate(R.layout.card_layout, parent, false);
-        TextView cityNameTextView = (TextView) cardView.findViewById(R.id.card_title);
-        TextView cityDescriptionTextView = (TextView) cardView.findViewById(R.id.card_subtitle);
-        ImageView cityImage = (ImageView) cardView.findViewById(
-                R.id.card_thumbnail);
-
-//        set view to reflect the City model object
+        CityViewHolder viewHolder;
+        if (convertView == null) {
+            viewHolder = new CityViewHolder();
+            convertView = mInflater.inflate(R.layout.card_layout, parent, false);
+            viewHolder.vCityName = (TextView) convertView.findViewById(R.id.card_title);
+            viewHolder.vCityDescription = (TextView) convertView.findViewById(R.id.card_subtitle);
+            viewHolder.vCityImage = (ImageView) convertView.findViewById(
+                    R.id.card_thumbnail);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (CityViewHolder) convertView.getTag();
+        }
+        // set view to reflect the City model object
         City city = (City) getItem(position);
-        cityNameTextView.setText(city.name);
-        cityNameTextView.setTypeface(Typeface.createFromAsset(
+        viewHolder.vCityName.setText(city.name);
+        viewHolder.vCityName.setTypeface(Typeface.createFromAsset(
                 mContext.getAssets(), "fonts/Tangerine_Bold.ttf"));
 
-        cityDescriptionTextView.setText(city.description);
-        cityDescriptionTextView.setTypeface(Typeface.createFromAsset(
+        viewHolder.vCityDescription.setText(city.description);
+        viewHolder.vCityDescription.setTypeface(Typeface.createFromAsset(
                 mContext.getAssets(), "fonts/Raleway-Medium.ttf"));
 
-        cityImage.setImageResource(city.imageResource);
+        viewHolder.vCityImage.setImageResource(city.imageResource);
+        return convertView;
+    }
 
-        return cardView;
+    private class CityViewHolder {
+        private TextView vCityName;
+        private TextView vCityDescription;
+        private ImageView vCityImage;
     }
 }
