@@ -21,13 +21,9 @@ import java.util.Scanner;
 
 import sresht.explore.databinding.RecyclerViewLayoutBinding;
 
-/**
- * Created by sresht on 4/9/17.
- */
-
 public class VenueActivity extends AppCompatActivity {
     ArrayList<Venue> mVenuesList;
-    RecyclerView venuesView;
+    RecyclerView mVenuesView;
     Context mContext;
 
     @Override
@@ -38,15 +34,10 @@ public class VenueActivity extends AppCompatActivity {
 
         RecyclerViewLayoutBinding binding =
                 DataBindingUtil.setContentView(this, R.layout.recycler_view_layout);
-        venuesView = binding.recyclerView;
-        venuesView.setHasFixedSize(true);
+        mVenuesView = binding.recyclerView;
+        mVenuesView.setHasFixedSize(true);
 
         String cityName = this.getIntent().getExtras().getString("cityName");
-        populateVenues(cityName);
-    }
-
-    private void populateVenues(String cityName) {
-//        populates the static venuesList global
         new GetVenuesTask().execute(cityName);
     }
 
@@ -58,6 +49,7 @@ public class VenueActivity extends AppCompatActivity {
         @Override
         protected JSONArray doInBackground(String... params) {
             try {
+                // TODO refactor limit into a constant
                 String cityName = params[0];
                 URL foursquareURL = new URL(String.format(
                         "https://api.foursquare" +
@@ -65,21 +57,18 @@ public class VenueActivity extends AppCompatActivity {
                                 "&limit=25&venuePhotos=1&v=%s", Secret.CLIENT_ID, Secret
                                 .CLIENT_SECRET,
                         cityName, "20170409"));
+
                 HttpURLConnection urlConnection = (HttpURLConnection) foursquareURL
                         .openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
+
                 InputStream stream = urlConnection.getInputStream();
                 Scanner s = new Scanner(stream).useDelimiter("\\A");
+
                 String response = s.hasNext() ? s.next() : "";
-                try {
-                    JSONObject jsonObj = (JSONObject) new JSONTokener(response).nextValue();
-                    return jsonObj.getJSONObject("response").getJSONArray("groups");
-                } catch (JSONException e) {
-                    // TODO better exception handling
-                    e.printStackTrace();
-                    return null;
-                }
+                JSONObject jsonObj = (JSONObject) new JSONTokener(response).nextValue();
+                return jsonObj.getJSONObject("response").getJSONArray("groups");
             } catch (Exception e) {
                 // TODO better exception handling
                 this.exception = e;
@@ -113,17 +102,19 @@ public class VenueActivity extends AppCompatActivity {
 
                 LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                venuesView.setLayoutManager(layoutManager);
-                venuesView.setAdapter(adapter);
+                mVenuesView.setLayoutManager(layoutManager);
+                mVenuesView.setAdapter(adapter);
             }
         }
 
         private String getImagePathFromVenueObject(JSONObject item) throws JSONException {
             // horrible hack to get the photo URL out of the JSON response for a venue from the
             // Foursquare API. There might be (and probably is) a better way to do this.
+            // TODO move 300x300 into constants file
             JSONObject photo = (JSONObject) ((JSONArray) ((JSONObject) ((JSONArray) (
                     (JSONObject) item.get("photos")).get("groups")).get(0)).get("items")).get(0);
-            return photo.getString("prefix") + "300x300" + photo.getString("suffix");
+            return String.format("%s300x300%s", photo.getString("prefix") ,photo.getString
+                    ("suffix"));
         }
 
         private String getLocationFromVenueObject(JSONObject item) throws JSONException {

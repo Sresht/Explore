@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,25 +60,4 @@ class CityAdapter extends BaseAdapter {
 
         return cardView;
     }
-
-//    class CityViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        TextView vName;
-//        ImageView vImage;
-//
-//        CityViewHolder(View v) {
-//            super(v);
-//            vName = (TextView) v.findViewById(R.id.card_name);
-//            vImage = (ImageView) v.findViewById(R.id.card_image);
-//            v.setOnClickListener(this);
-//        }
-//
-//        @Override
-//        public void onClick(View v) {
-//            Context context = v.getContext();
-//            Intent intent = new Intent(context, VenueActivity.class);
-//            intent.setAction("android.intent.action.PICK");
-//            intent.addCategory("android.intent.category.DEFAULT");
-//            context.startActivity(intent);
-//        }
-//    }
 }

@@ -5,4 +5,5 @@
     <string name="details">Detail</string>
     <string name="title">Title</string>
     <string name="subtitle">Subtitle</string>
+    <string name="venue_image">Venue Image</string>
 </resources>

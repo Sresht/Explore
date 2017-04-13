@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +22,7 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context mContext;
     private final List<Venue> mVenueList;
     private LayoutInflater mInflater;
-    SharedPreferences mSharedPref;
+    private SharedPreferences mSharedPref;
 
     VenueAdapter(final Context context, final ArrayList<Venue> venues, final SharedPreferences
             sharedPref) {
@@ -95,11 +94,10 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         venueViewHolder.vVenue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent detailIntent = new Intent(mContext, VenueActivity.class);
+                Intent detailIntent = new Intent(mContext, VenueImageActivity.class);
                 detailIntent.putExtra("venueId", venue.id);
-                Toast.makeText(mContext, "hello this is venue: " + venue.name, Toast
-                        .LENGTH_SHORT).show();
-//                mContext.startActivity(detailIntent);
+                detailIntent.putExtra("venueName", venue.name);
+                mContext.startActivity(detailIntent);
             }
         });
     }
