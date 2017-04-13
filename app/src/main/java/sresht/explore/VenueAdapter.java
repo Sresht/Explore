@@ -69,7 +69,7 @@ class VenueAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         venueViewHolder.vCategory.setVisibility(View.VISIBLE);
 
         // set venue image asynchronously using Picasso
-        Picasso.with(mContext).load(venue.imagePath).placeholder(R.drawable.default_venue).into
+        Picasso.with(mContext).load(venue.venueCoverImageURL).placeholder(R.drawable.default_venue).into
                             (venueViewHolder.vImage);
 
         // update bookmark button to reflect whether the venue has been bookmarked or not

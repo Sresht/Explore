@@ -49,14 +49,15 @@ public class VenueActivity extends AppCompatActivity {
         @Override
         protected JSONArray doInBackground(String... params) {
             try {
-                // TODO refactor limit into a constant
                 String cityName = params[0];
                 URL foursquareURL = new URL(String.format(
-                        "https://api.foursquare" +
-                                ".com/v2/venues/explore?client_id=%s&client_secret=%s&near=%s" +
-                                "&limit=25&venuePhotos=1&v=%s", Secret.CLIENT_ID, Secret
-                                .CLIENT_SECRET,
-                        cityName, "20170409"));
+                        "https://api.foursquare.com/v2/venues/explore?client_id=%s&client_secret=" +
+                                "%s&near=%s&limit=%s&venuePhotos=1&v=%s",
+                        Secret.CLIENT_ID,
+                        Secret.CLIENT_SECRET,
+                        cityName,
+                        Constant.VENUE_LIMIT,
+                        "20170409"));
 
                 HttpURLConnection urlConnection = (HttpURLConnection) foursquareURL
                         .openConnection();
@@ -87,7 +88,7 @@ public class VenueActivity extends AppCompatActivity {
                         JSONObject item = (JSONObject) ((JSONObject) items.get(j)).get("venue");
                         Venue venue = new Venue(item.getString("name"), item
                                 .getString("id"));
-                        venue.imagePath = getImagePathFromVenueObject(item);
+                        venue.venueCoverImageURL = getImagePathFromVenueObject(item);
                         venue.location = getLocationFromVenueObject(item);
                         venue.category = getCategoryFromVenueObject(item);
                         mVenuesList.add(venue);
@@ -110,11 +111,12 @@ public class VenueActivity extends AppCompatActivity {
         private String getImagePathFromVenueObject(JSONObject item) throws JSONException {
             // horrible hack to get the photo URL out of the JSON response for a venue from the
             // Foursquare API. There might be (and probably is) a better way to do this.
-            // TODO move 300x300 into constants file
             JSONObject photo = (JSONObject) ((JSONArray) ((JSONObject) ((JSONArray) (
                     (JSONObject) item.get("photos")).get("groups")).get(0)).get("items")).get(0);
-            return String.format("%s300x300%s", photo.getString("prefix") ,photo.getString
-                    ("suffix"));
+            return String.format("%s%s%s",
+                    photo.getString("prefix"),
+                    Constant.IMAGE_DIMENSION,
+                    photo.getString("suffix"));
         }
 
         private String getLocationFromVenueObject(JSONObject item) throws JSONException {

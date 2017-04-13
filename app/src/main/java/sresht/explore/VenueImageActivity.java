@@ -49,12 +49,14 @@ public class VenueImageActivity extends AppCompatActivity {
             String venueId = params[0];
             URL venueURL;
             try {
-                // TODO refactor limit into a constant
                 venueURL = new URL(String.format(
                         "https://api.foursquare" +
-                                ".com/v2/venues/%s/photos?client_id=%s&client_secret=%s&limit=40" +
-                                "&v=%s",
-                                venueId, Secret.CLIENT_ID, Secret.CLIENT_SECRET, "20170409"));
+                                ".com/v2/venues/%s/photos?client_id=%s&client_secret=%s&limit=%s&v=%s",
+                        venueId,
+                        Secret.CLIENT_ID,
+                        Secret.CLIENT_SECRET,
+                        Constant.VENUE_IMAGE_LIMIT,
+                        "20170409"));
 
                 HttpURLConnection urlConnection = (HttpURLConnection) venueURL.openConnection();
                 urlConnection.setRequestMethod("GET");
@@ -68,6 +70,7 @@ public class VenueImageActivity extends AppCompatActivity {
                 return jsonObj.getJSONObject("response").getJSONObject("photos")
                         .getJSONArray("items");
             } catch (Exception e) {
+                // TODO better exception handling
                 e.printStackTrace();
                 return null;
             }
@@ -78,8 +81,9 @@ public class VenueImageActivity extends AppCompatActivity {
             try {
                 for (int i = 0; i < photos.length(); i++) {
                     JSONObject photo = (JSONObject) photos.get(i);
-                    // TODO move 300x300 into constants file
-                    String imageURL = String.format("%s300x300%s", photo.getString("prefix"),
+                    String imageURL = String.format("%s%s%s",
+                            photo.getString("prefix"),
+                            Constant.IMAGE_DIMENSION,
                             photo.getString("suffix"));
                     mImageURLs.add(imageURL);
                 }
